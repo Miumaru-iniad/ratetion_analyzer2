@@ -55,7 +55,15 @@ for a in files:
     seconds =[(second*x)/length for x in range(length)]
     print(seconds)
     data.append(seconds)
+    #変化率を入力しデータに追加するdata[5]
+    lst = [0]
+    for x in range(length-1):
+        lst.append(data[1][x+1]-data[1][x])
+    data.append(lst)
+
+
     data_lst.append(data)
+
     plt.title(fnames[count],fontname="MS Gothic")
     plt.xlabel("time (second)")
     plt.ylabel("retation")
@@ -63,7 +71,29 @@ for a in files:
     plt.plot(data[4], data[3], linestyle='solid',label='rivals of ' + fnames[count])
     plt.legend(loc = 'upper right',prop={"family":"MS Gothic"})
     plt.show()
+    #2軸グラフを作ってみる
+    fig = plt.figure()
+
+    ax1 = fig.subplots()
+    ax2 = ax1.twinx()
+
+    plt.title(fnames[count],fontname="MS Gothic")
+    plt.xlabel("time (second)")
+    ax1.plot(data[4], data[1], linestyle='solid',label=fnames[count])
+    ax1.plot(data[4], data[3], linestyle='solid',label='rivals of ' + fnames[count])
+    ax2.plot(data[4], data[5], linestyle='solid',label="derivative"+fnames[count])
+
+
+    ax1.legend(loc = 'upper right',prop={"family":"MS Gothic"})
+    plt.show()
+
+
+
+
+
+
     count+=1
+    
 
 
 plt.title("Songs Retation")
